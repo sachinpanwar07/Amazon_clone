@@ -12,7 +12,7 @@ export default function AuthStack() {
     
         name={NavigationStrings.LOGIN}
         component={screen.LoginScreen}
-        options={{headerShown: true}}
+        options={{headerShown: false}}
       />
 
       <Stack.Screen

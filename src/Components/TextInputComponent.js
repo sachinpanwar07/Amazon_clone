@@ -1,0 +1,75 @@
+import {StyleSheet, Text, TextInput, View, Image} from 'react-native';
+import React from 'react';
+import {
+  moderateScale,
+  moderateScaleVertical,
+  textScale,
+} from '../Style/Responsive';
+import Colors from '../Style/Colors';
+const TextInputComponent = ({
+  value = '',
+  onChangeText,
+  placeholder = '',
+  secureText = false,
+  onPressSecure = () => {},
+  inputStyle = {},
+  textStyle = {},
+  placeholderTextColor = Colors.whiteColorOpacity70,
+  imageSource,
+  ...props
+}) => {
+  return (
+    <View
+      style={{
+        ...styles.inputStyle,
+        ...inputStyle,
+      }}>
+      <View style={styles.container}>
+      {imageSource && (
+          <Image source={imageSource} style={styles.imageiconStyle} />
+        )}
+        <TextInput
+          style={{...styles.textStyle}}
+          value={value}
+          onChangeText={onChangeText}
+          placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor}
+          {...props}
+        />
+      </View>
+
+    </View>
+  );
+};
+
+export default TextInputComponent;
+
+const styles = StyleSheet.create({
+  inputStyle: {
+    height: moderateScale(52),
+    margin: moderateScale(10),
+    borderRadius: moderateScale(10),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: moderateScale(16),
+    alignItems: 'center',
+    backgroundColor: Colors.grayColor,
+    marginBottom: moderateScale(16),
+  },
+  textStyle: {
+    fontSize: textScale(14),
+    flex: 1,
+    color: Colors.whiteColor,
+  },
+  imageiconStyle: {
+    width: moderateScale(30),
+    height: moderateScale(30),
+    marginRight: moderateScale(10),
+    resizeMode:'cover',
+  },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    
+  },
+});
