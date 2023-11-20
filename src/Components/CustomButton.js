@@ -19,20 +19,20 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   Container: {
-    backgroundColor: Colors.yellowColor,
+    backgroundColor: Colors.orangeColor,
     height: moderateScale(52),
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: moderateScale(10),
     flexDirection: 'row',
     paddingHorizontal: moderateScale(12),
-    margin: moderateScale(10),
+    margin: moderateScale(30),
+  
   },
   textStyle: {
     fontSize: textScale(16),
     color: 'white',
     fontWeight: '700',
     textAlign:'center',
-    alignItems:'center'
   },
 });

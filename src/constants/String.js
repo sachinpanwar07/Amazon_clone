@@ -28,7 +28,12 @@ export default{
     MOBILE_NUMBER:"Mobile number",
     CONFIRM_PASS:"Confirm Password",
     KEEP_ME_LOGGED_IN:"keep me logged in ",
-    LOGGED_IN_YOUR_ACC:"Login  in  to  your  Account"
+    LOGGED_IN_YOUR_ACC:"Login  in  to  your  Account",
+    DONT_HAVE_ACC:"Don't have an account?",
+    ALREADY_HAVE_ACC:"Already have an account? ",
+    SIGN_IN:'Sign in',
+    REGISTER:"Register",
+    REGISTER_TO_ACC:"Register to your account"
     
 
 

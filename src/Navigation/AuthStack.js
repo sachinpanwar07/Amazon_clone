@@ -18,7 +18,7 @@ export default function AuthStack() {
       <Stack.Screen
         name={NavigationStrings.REGISTRATION}
         component={screen.Registration}
-        options={{headerShown: true}}
+        options={{headerShown: false}}
       />
       </Stack.Navigator>
     </NavigationContainer>
