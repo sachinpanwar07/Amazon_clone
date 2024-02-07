@@ -1,4 +1,5 @@
 export default{
+    Name:'Enter Your Name',
     HOME:'Home',
     PROFILE:'Profile',
     SEARCH:'Search',

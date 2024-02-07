@@ -7,6 +7,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import NavigationStrings from '../Navigation/NavigationStrings';
@@ -17,12 +18,42 @@ import {moderateScale, textScale} from '../Style/Responsive';
 import Colors from '../Style/Colors';
 import CustomButton from '../Components/CustomButton';
 import CustomText from '../Components/CustomText';
+import axios from 'axios';
 
 const Registration = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecuretext] = useState(true);
-  const [userName, setUserName] = useState('');
+  const [name, setName] = useState('');
+
+  const handelRegisterUser = () => {
+      const user = {
+        name: name,
+        email: email,
+        password: password,
+      };
+  
+      // send a POST  request to the backend API to register the user
+      axios
+        .post("http://192.168.43.218:8000/register", user)
+        .then((response) => {
+          console.log(response);
+          Alert.alert(
+            "Registration successful",
+            "You have been registered Successfully"
+          );
+          setName("");
+          setEmail("");
+          setPassword("");
+        })
+        .catch((error) => {
+          Alert.alert(
+            "Registration Error",
+            "An error occurred while registering"
+          );
+          console.log("registration failed", error);
+        });
+    };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -31,9 +62,9 @@ const Registration = ({navigation}) => {
         <Image source={ImagePath.amznlogo} style={styles.amzLogoStyel} />
         <Text style={styles.textStyle}>{String.REGISTER_TO_ACC}</Text>
         <TextInputComponent
-          value={userName}
-          onChangeText={value => setUserName(value)}
-          placeholder={String.EMAIL}
+          value={name}
+          onChangeText={value => setName(value)}
+          placeholder={String.Name}
           imageSource={ImagePath.amznuser}
         />
         <TextInputComponent
@@ -47,6 +78,7 @@ const Registration = ({navigation}) => {
           placeholder={String.PASSWORD}
           onChangeText={value => setPassword(value)}
           imageSource={ImagePath.lockicon}
+        
         />
         <View
           style={{
@@ -58,10 +90,7 @@ const Registration = ({navigation}) => {
           <Text style={{color: Colors.blueColor}}>{String.FORGOT_PASS}</Text>
         </View>
       </View>
-      <CustomButton
-        text={String.REGISTER}
-        onPress={() => navigation.navigate(NavigationStrings.REGISTRATION)}
-      />
+      <CustomButton text={String.REGISTER} onPress={() => handelRegisterUser()} />
       <View style={styles.textContainer}>
         <Text style={{fontSize: textScale(16)}}>Already have an account?</Text>
         <CustomText text={String.SIGN_IN} />

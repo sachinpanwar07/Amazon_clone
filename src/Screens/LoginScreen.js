@@ -19,6 +19,18 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecuretext] = useState(true);
+
+  const handelLogin=()=>{
+    const user={
+      email:email,
+      password:password
+    }
+    axios.post("http://192.168.43.218:8000/login").then((response)=>{
+      console.log(response)
+      const token=response.data.token;
+      AsyncStorage.setItem("authToken",token)
+    })
+  }
   return (
     <View style={styles.container}>
       <View>
@@ -48,7 +60,7 @@ const LoginScreen = ({navigation}) => {
       </View>
       <CustomButton
         text={String.LOGIN}
-        onPress={() => navigation.navigate(NavigationStrings.REGISTRATION)}
+        onPress={() =>handelLogin}
       />
       <View style={styles.textContainer}>
         <Text style={{fontSize: textScale(16)}}>Don't have an account?</Text>
