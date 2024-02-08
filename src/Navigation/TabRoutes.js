@@ -7,11 +7,10 @@ import Colors from '../Style/Colors';
 import {Image, StyleSheet} from 'react-native';
 import ImagePath from '../constants/ImagePath';
 import NavigationStrings from './NavigationStrings';
-import { HomeScreen } from '../Screens';
+import *as screen from '../Screens'
 const BottomTab = createBottomTabNavigator();
 
 const TabRoutes = props => {
-
   return (
     <BottomTab.Navigator
       tabBar={tabsProps => (
@@ -25,11 +24,11 @@ const TabRoutes = props => {
         style: styles.customBottomtabsStyle,
         tabBarActiveTintColor: Colors.black,
         tabBarShowLabel: false,
-        tabBarStyle: {backgroundColor: Colors.theme},
+        tabBarStyle: {backgroundColor:'red'},
       }}>
       <BottomTab.Screen
         name={NavigationStrings.HOME_SCREEN}
-        component={HomeScreen}
+        component={screen.HomeScreen}
         options={{
           tabBarIcon: ({focused}) => {
             return (
@@ -44,7 +43,21 @@ const TabRoutes = props => {
           },
         }}
       />
-   
+    {/* <BottomTab.Screen
+        name={NavigationStrings.Seacrh}
+        component={screen.SearchScreen}
+        options={{
+          tabBarIcon: ({focused}) => {
+            return (
+              <Image
+                source={ImagePath.createIcon}
+                style={[styles.icon, {tintColor: focused ? 'blue' : 'grey'}]}
+              />
+            );
+          },
+          tabBarStyle: {},
+        }}
+      /> */}
     </BottomTab.Navigator>
   );
 };

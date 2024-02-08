@@ -5,5 +5,7 @@ export default {
   CREATE_TRIP:"CreateTrip",
   SIGNUP_SCREEN:"Signup",
   TAB_ROUTES:"TabRoutes",
-  
+  Seacrh:"SearchScreen",
+  HOME_SCREEN:"HomeScreen"
+
 };

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextComponent,
   Image,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import NavigationStrings from '../Navigation/NavigationStrings';
@@ -15,6 +16,8 @@ import {moderateScale, textScale} from '../Style/Responsive';
 import Colors from '../Style/Colors';
 import CustomButton from '../Components/CustomButton';
 import CustomText from '../Components/CustomText';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,10 +28,14 @@ const LoginScreen = ({navigation}) => {
       email:email,
       password:password
     }
-    axios.post("http://192.168.43.218:8000/login").then((response)=>{
+    axios.post("http://192.168.43.218:3000/login",user).then((response)=>{
       console.log(response)
       const token=response.data.token;
       AsyncStorage.setItem("authToken",token)
+      navigation.navigate(NavigationStrings.HOME_SCREEN)
+    }).catch((error)=>{
+      Alert.alert("Login Error","Invalid  Email")
+      console.log(error)
     })
   }
   return (
@@ -60,7 +67,7 @@ const LoginScreen = ({navigation}) => {
       </View>
       <CustomButton
         text={String.LOGIN}
-        onPress={() =>handelLogin}
+        onPress={() =>handelLogin()}
       />
       <View style={styles.textContainer}>
         <Text style={{fontSize: textScale(16)}}>Don't have an account?</Text>
