@@ -13,6 +13,7 @@ export default function (Stack) {
         component={TabRoutes}
         options={{headerShown: false}}
       />
+
     </>
   );
 }

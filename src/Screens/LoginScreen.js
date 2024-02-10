@@ -7,7 +7,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavigationStrings from '../Navigation/NavigationStrings';
 import TextInputComponent from '../Components/TextInputComponent';
 import String from '../constants/String';
@@ -22,13 +22,29 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecuretext] = useState(true);
+  useEffect(()=>{
+    const  checkLoginStatus=async()=>{
+      try {
+        const token=await AsyncStorage.getItem("authToken")
+        if(token){
+          navigation.replace(NavigationStrings.TAB_ROUTES)
+        }
+        
+      } catch (error) {
+        console.log("error message",error)
+      }
+    }
+    checkLoginStatus()
+   
+  },[])
+    
 
   const handelLogin=()=>{
     const user={
       email:email,
       password:password
     }
-    axios.post("http://192.168.43.218:3000/login",user).then((response)=>{
+    axios.post("http://192.168.43.368:3000/login",user).then((response)=>{
       console.log(response)
       const token=response.data.token;
       AsyncStorage.setItem("authToken",token)

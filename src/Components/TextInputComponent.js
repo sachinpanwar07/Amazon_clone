@@ -14,8 +14,9 @@ const TextInputComponent = ({
   onPressSecure = () => {},
   inputStyle = {},
   textStyle = {},
-  placeholderTextColor = Colors.whiteColorOpacity70,
+  placeholderTextColor ,
   imageSource,
+  backgroundColor,
   ...props
 }) => {
   return (
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: moderateScale(16),
     alignItems: 'center',
-    backgroundColor: Colors.grayColor,
+    backgroundColor: backgroundColor,
     marginBottom: moderateScale(16),
   },
   textStyle: {

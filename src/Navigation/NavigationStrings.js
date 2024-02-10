@@ -1,11 +1,9 @@
 export default {
   LOGIN: 'Login',
   REGISTRATION:'Registration',
-  PROFILE:"profile",
-  CREATE_TRIP:"CreateTrip",
-  SIGNUP_SCREEN:"Signup",
+  PROFILE:"ProfileScreen",
   TAB_ROUTES:"TabRoutes",
   Seacrh:"SearchScreen",
-  HOME_SCREEN:"HomeScreen"
-
+  HOME_SCREEN:"HomeScreen",
+  ADD_CART:"AddCartScreen",
 };

@@ -7,7 +7,7 @@ import Colors from '../Style/Colors';
 import {Image, StyleSheet} from 'react-native';
 import ImagePath from '../constants/ImagePath';
 import NavigationStrings from './NavigationStrings';
-import *as screen from '../Screens'
+import * as screen from '../Screens';
 const BottomTab = createBottomTabNavigator();
 
 const TabRoutes = props => {
@@ -24,7 +24,7 @@ const TabRoutes = props => {
         style: styles.customBottomtabsStyle,
         tabBarActiveTintColor: Colors.black,
         tabBarShowLabel: false,
-        tabBarStyle: {backgroundColor:'red'},
+        tabBarStyle: {backgroundColor: 'red'},
       }}>
       <BottomTab.Screen
         name={NavigationStrings.HOME_SCREEN}
@@ -43,21 +43,40 @@ const TabRoutes = props => {
           },
         }}
       />
-    {/* <BottomTab.Screen
-        name={NavigationStrings.Seacrh}
-        component={screen.SearchScreen}
+      <BottomTab.Screen
+        name={NavigationStrings.PROFILE}
+        component={screen.ProfileScreen}
         options={{
           tabBarIcon: ({focused}) => {
             return (
               <Image
-                source={ImagePath.createIcon}
+                source={ImagePath.amznuser}
                 style={[styles.icon, {tintColor: focused ? 'blue' : 'grey'}]}
               />
             );
           },
-          tabBarStyle: {},
+          tabBarStyle: {
+            tabBarActiveTintColor: 'grey',
+          },
         }}
-      /> */}
+      />
+      <BottomTab.Screen
+        name={NavigationStrings.ADD_CART}
+        component={screen.AddCart}
+        options={{
+          tabBarIcon: ({focused}) => {
+            return (
+              <Image
+                source={ImagePath.carticon}
+                style={[styles.icon, {tintColor: focused ? 'blue' : 'grey'}]}
+              />
+            );
+          },
+          tabBarStyle: {
+            tabBarActiveTintColor: 'grey',
+          },
+        }}
+      />
     </BottomTab.Navigator>
   );
 };

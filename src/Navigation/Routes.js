@@ -6,7 +6,7 @@ import AuthStack from './AuthStack';
 const Stack = createNativeStackNavigator();
 export default function Routes() {
   //  const {userData} = useContext(UserContext);
-  const userData=false;
+  const userData=true;
   console.log("this is login user ",userData)
   return (
     <NavigationContainer>
