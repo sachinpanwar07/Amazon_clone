@@ -5,5 +5,8 @@ export default {
     amznuser:require('../assets/images/amznuser.png'),
     homeicon:require('../assets/images/ic_home.png'),
     carticon:require('../assets/images/ic_addCart.png'),
-    searchicon:require('../assets/images/searchicon.png')
+    searchicon:require('../assets/images/searchicon.png'),
+    micicon:require('../assets/images/micicon.png'),
+    locationicon:require('../assets/images/locationicon.png'),
+    dropDownicon:require('../assets/images/dropDownicon.png')
   };

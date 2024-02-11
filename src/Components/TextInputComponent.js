@@ -24,6 +24,7 @@ const TextInputComponent = ({
       style={{
         ...styles.inputStyle,
         ...inputStyle,
+        backgroundColor: backgroundColor
       }}>
       <View style={styles.container}>
       {imageSource && (
@@ -48,14 +49,15 @@ export default TextInputComponent;
 const styles = StyleSheet.create({
   inputStyle: {
     height: moderateScale(52),
-    margin: moderateScale(10),
+    margin: moderateScale(20),
     borderRadius: moderateScale(10),
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: moderateScale(16),
     alignItems: 'center',
-    backgroundColor: backgroundColor,
+   
     marginBottom: moderateScale(16),
+
   },
   textStyle: {
     fontSize: textScale(14),
