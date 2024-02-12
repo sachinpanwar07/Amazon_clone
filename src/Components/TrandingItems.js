@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, Image, StyleSheet, Text } from 'react-native';
+import { View, FlatList, Image, StyleSheet, Text ,TouchableOpacity} from 'react-native';
 import { moderateScale, textScale } from '../Style/Responsive';
 
 const TrandingItems = () => {
@@ -68,13 +68,10 @@ const TrandingItems = () => {
       ],
     },
   ];
-
   const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer}>
       <Image style={styles.image} source={{ uri: item.image }} />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.price}>Price: ${item.price}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -102,7 +99,6 @@ const styles = StyleSheet.create({
     elevation: moderateScale(3),
     flexDirection:'column',
     width:moderateScale(170),
-   
  
   },
   image: {

@@ -21,9 +21,17 @@ import TextInputComponent from '../Components/TextInputComponent';
 import Items from '../Components/Items';
 import Carousel from '../Components/CarouselView';
 import TrandingItems from '../Components/TrandingItems';
-
+import TodayDeals from '../Components/TodayDeals';
+import AllProduct from '../Components/AllProduct';
+import DropDownPicker from "react-native-dropdown-picker";
 const HomeScreen = () => {
   const [search, setSearch] = useState();
+  const [items, setItems] = useState([
+    { label: "Men's clothing", value: "men's clothing" },
+    { label: "jewelery", value: "jewelery" },
+    { label: "electronics", value: "electronics" },
+    { label: "women's clothing", value: "women's clothing" },
+  ]);
   return (
     <SafeAreaView
       style={{
@@ -36,7 +44,7 @@ const HomeScreen = () => {
         barStyle="light-content"
         hidden={false}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.MainContainerStyle}>
           <TextInputComponent
             value={search}
@@ -64,8 +72,35 @@ const HomeScreen = () => {
         </View>
         <Items/>
         <Carousel/>
-        <TrandingItems/>
+       <View>
+       <TrandingItems/>
+       </View>
+       <Text style={{height:moderateScale(1),borderBlockColor:'#D0D0D0' ,borderWidth:2,marginTop:moderateScale(15)}}/>
+      <Text style={{padding:moderateScale(10),fontSize:textScale(18),fontWeight:'bold',color:Colors.blackColor}}>Today's Deals</Text>
+     <TodayDeals/>
+     <Text style={{height:moderateScale(1),borderBlockColor:'#D0D0D0' ,borderWidth:2,marginTop:moderateScale(15)}}/>
+     <DropDownPicker
+              style={{
+                borderColor: "#B7B7B7",
+                height: 30,
+                marginBottom: open ? 120 : 15,
+              }}
+              open={open}
+              value={category} //genderValue
+              items={items}
+              setOpen={setOpen}
+              setValue={setCategory}
+              setItems={setItems}
+              placeholder="choose category"
+              placeholderStyle={styles.placeholderStyles}
+              onOpen={onGenderOpen}
+              // onChangeValue={onChange}
+              zIndex={3000}
+              zIndexInverse={1000}
+            />
+      <AllProduct/>
       </ScrollView>
+     
     </SafeAreaView>
   );
 };
