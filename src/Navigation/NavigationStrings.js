@@ -6,4 +6,5 @@ export default {
   Seacrh:"SearchScreen",
   HOME_SCREEN:"HomeScreen",
   ADD_CART:"AddCartScreen",
+  PRODUCT_INFO:"ProductInformation"
 };

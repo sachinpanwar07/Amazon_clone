@@ -8,8 +8,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import { textScale } from '../Style/Responsive';
+import { useNavigation } from '@react-navigation/native';
+import NavigationStrings from '../Navigation/NavigationStrings';
 
 const TodayDeals = () => {
+  const navigation=useNavigation()
   const offers = [
     {
       id: '0',
@@ -79,7 +82,16 @@ const TodayDeals = () => {
       showsHorizontalScrollIndicator={false}
       style={styles.scrollView}>
       {offers.map(offer => (
-        <TouchableOpacity key={offer.id} style={styles.card}>
+        <TouchableOpacity key={offer.id} style={styles.card} onPress={()=>navigation.navigate(NavigationStrings.PRODUCT_INFO, {
+          id: offer.id,
+          title: offer.title,
+          price: offer?.price,
+          carouselImages: offer.carouselImages,
+          color: offer?.color,
+          size: offer?.size,
+          oldPrice: offer?.oldPrice,
+          offer: offer,
+        })}>
           <Image source={{uri: offer.image}} style={styles.image} />
           <View
             style={{

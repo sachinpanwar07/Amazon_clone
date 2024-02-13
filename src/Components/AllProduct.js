@@ -9,14 +9,28 @@ import {
 import React, {useEffect, useState} from 'react';
 import {moderateScale, textScale} from '../Style/Responsive';
 import Colors from '../Style/Colors';
+import DropDownPicker from 'react-native-dropdown-picker';
+import NavigationStrings from '../Navigation/NavigationStrings';
+import { useNavigation } from '@react-navigation/native';
 
 const AllProduct = () => {
   const [products, setProducts] = useState([]);
-  console.log(products);
+  const [category, setCategory] = useState('jewelery');
+  const [open, setOpen] = useState(false);
+  const navigation=useNavigation()
+  const items = [
+    {label: "Men's clothing", value: "men's clothing"},
+    {label: 'Jewelery', value: 'jewelery'},
+    {label: 'Electronics', value: 'electronics'},
+    {label: "Women's clothing", value: "women's clothing"},
+  ];
+
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('https://fakestoreapi.com/products');
+        const response = await fetch(
+          `https://fakestoreapi.com/products/category/${category}`,
+        );
         const json = await response.json();
         setProducts(json);
       } catch (error) {
@@ -24,41 +38,72 @@ const AllProduct = () => {
       }
     }
     fetchProducts();
-  }, []);
+  }, [category]);
 
-  const renderProductItem = ({item}) => (
-    <View style={styles.renderContainer}>
-      <TouchableOpacity style={styles.productItem}>
-        <Image source={{uri: item.image}} style={styles.productImage} />
-        <Text style={styles.productTitle}>{item.title}</Text>
-        <Text style={styles.productPrice}>{`$${item.price}`}</Text>
-        <Text style={styles.ratingtext}>{item.rating.rate} rating</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: "#FFC72C",
-          width: moderateScale(150),
-          margin: moderateScale(8),
-          borderRadius: moderateScale(50),
-          height: moderateScale(45),
-        }}>
-        <Text>Add to Cart</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  const renderProductItem = ({item}) => {
+    if (item.category === category) {
+      return (
+        <View style={styles.renderContainer}>
+          <TouchableOpacity style={styles.productItem} onPress={() => {navigation.navigate(NavigationStrings.PRODUCT_INFO, {
+                    id: item.id,
+                    title: item.title,
+                    price: item?.price,
+                    carouselImages: item.carouselImages,
+                    color: item?.color,
+                    size: item?.size,
+                    oldPrice: item?.oldPrice,
+                    item: item,
+                  })}}>
+            <Image source={{uri: item.image}} style={styles.productImage} />
+            <Text style={styles.productTitle}>{item.title}</Text>
+            <Text style={styles.productPrice}>{`$${item.price}`}</Text>
+            <Text style={styles.ratingtext}>{item.rating.rate} rating</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#FFC72C',
+              width: moderateScale(150),
+              margin: moderateScale(8),
+              borderRadius: moderateScale(50),
+              height: moderateScale(45),
+            }}
+            >
+            <Text>Add to Cart</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return null;
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>All Products</Text>
+      <DropDownPicker
+        style={{
+          borderColor: '#B7B7B7',
+          height: 30,
+          marginBottom: open ? 120 : 15,
+        }}
+        open={open}
+        value={category}
+        items={items}
+        setOpen={setOpen}
+        setValue={setCategory}
+        placeholder={category}
+        placeholderStyle={styles.placeholderStyles}
+        zIndex={3000}
+        zIndexInverse={1000}
+        onOpen={() => setOpen(true)}
+      />
       <FlatList
         data={products}
         renderItem={renderProductItem}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={styles.productList}
         numColumns={2}
-        key={(item, index) => index.toString()} // Add this key prop
       />
     </View>
   );
@@ -83,7 +128,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: moderateScale(10),
     padding: moderateScale(10),
-
     borderRadius: moderateScale(10),
   },
   productImage: {

@@ -4,16 +4,22 @@ import NavigationStrings from './NavigationStrings';
 import TabRoutes from './TabRoutes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ProductInformation} from '../Screens';
+import * as screen from '../Screens';
 // const Stack = createNativeStackNavigator();
 export default function (Stack) {
   return (
     <>
       <Stack.Screen
         name={NavigationStrings.TAB_ROUTES}
-        component={TabRoutes}
+        component={screen.TabRoutes}
         options={{headerShown: false}}
       />
-
+      <Stack.Screen
+        name={NavigationStrings.PRODUCT_INFO}
+        component={screen.ProductInformation}
+        options={{headerShown: false}}
+      />
     </>
   );
 }

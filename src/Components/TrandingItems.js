@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, FlatList, Image, StyleSheet, Text ,TouchableOpacity} from 'react-native';
 import { moderateScale, textScale } from '../Style/Responsive';
+import NavigationStrings from '../Navigation/NavigationStrings';
+import { useNavigation } from '@react-navigation/native';
 
 const TrandingItems = () => {
+  const navigation=useNavigation()
   const deals = [
     {
       id: "20",
@@ -69,7 +72,16 @@ const TrandingItems = () => {
     },
   ];
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={()=>navigation.navigate(NavigationStrings.PRODUCT_INFO , {
+      id: item.id,
+      title: item.title,
+      price: item?.price,
+      carouselImages: item.carouselImages,
+      color: item?.color,
+      size: item?.size,
+      oldPrice: item?.oldPrice,
+      item: item,
+    })}>
       <Image style={styles.image} source={{ uri: item.image }} />
     </TouchableOpacity>
   );

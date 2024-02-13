@@ -79,25 +79,7 @@ const HomeScreen = () => {
       <Text style={{padding:moderateScale(10),fontSize:textScale(18),fontWeight:'bold',color:Colors.blackColor}}>Today's Deals</Text>
      <TodayDeals/>
      <Text style={{height:moderateScale(1),borderBlockColor:'#D0D0D0' ,borderWidth:2,marginTop:moderateScale(15)}}/>
-     <DropDownPicker
-              style={{
-                borderColor: "#B7B7B7",
-                height: 30,
-                marginBottom: open ? 120 : 15,
-              }}
-              open={open}
-              value={category} //genderValue
-              items={items}
-              setOpen={setOpen}
-              setValue={setCategory}
-              setItems={setItems}
-              placeholder="choose category"
-              placeholderStyle={styles.placeholderStyles}
-              onOpen={onGenderOpen}
-              // onChangeValue={onChange}
-              zIndex={3000}
-              zIndexInverse={1000}
-            />
+     
       <AllProduct/>
       </ScrollView>
      
