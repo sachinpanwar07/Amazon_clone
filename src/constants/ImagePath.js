@@ -8,5 +8,7 @@ export default {
     searchicon:require('../assets/images/searchicon.png'),
     micicon:require('../assets/images/micicon.png'),
     locationicon:require('../assets/images/locationicon.png'),
-    dropDownicon:require('../assets/images/dropDownicon.png')
+    dropDownicon:require('../assets/images/dropDownicon.png'),
+    shareIcon:require('../assets/images/sharep.png'),
+    hearticon:require('../assets/images/heart.png')
   };
