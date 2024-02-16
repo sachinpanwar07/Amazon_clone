@@ -35,7 +35,7 @@ const Registration = ({navigation}) => {
   
       // send a POST  request to the backend API to register the user
       axios
-        .post("http://192.168.43.218:3000/register", user)
+        .post("http://192.368.43.618:3000/register", user)
         .then((response) => {
           console.log(response);
           Alert.alert(
