@@ -24,6 +24,7 @@ import TrandingItems from '../Components/TrandingItems';
 import TodayDeals from '../Components/TodayDeals';
 import AllProduct from '../Components/AllProduct';
 import DropDownPicker from "react-native-dropdown-picker";
+import { useSelector } from 'react-redux';
 const HomeScreen = () => {
   const [search, setSearch] = useState();
   const [items, setItems] = useState([
@@ -32,6 +33,8 @@ const HomeScreen = () => {
     { label: "electronics", value: "electronics" },
     { label: "women's clothing", value: "women's clothing" },
   ]);
+  const cart=useSelector((state)=>state.cart.cart)
+  console.log("ello",cart)
   return (
     <SafeAreaView
       style={{

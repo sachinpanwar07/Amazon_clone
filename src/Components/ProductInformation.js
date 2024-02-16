@@ -17,12 +17,24 @@ import Colors from '../Style/Colors';
 import TextInputComponent from './TextInputComponent';
 import ImagePath from '../constants/ImagePath';
 import {width, height} from '../Style/Responsive';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart} from '../redux/CartReducer';
 
 const ProductInformation = ({route}) => {
-  const {id, title, price, carouselImages, color, size, oldPrice} =
+  const {id, title, price, carouselImages, color, size, oldPrice, item} =
     route.params;
   const [search, setSearch] = useState();
-
+  const [addCart, setAddToCart] = useState(false);
+  const dispatch = useDispatch();
+  const addItemToCart = item => {
+    setAddToCart(true);
+    dispatch(addToCart(item));
+    setTimeout(() => {
+      setAddToCart(false);
+    }, 60000);
+  };
+  const cart = useSelector(state => state.cart.cart);
+  console.log(cart);
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -50,7 +62,17 @@ const ProductInformation = ({route}) => {
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <TouchableOpacity
-                style={{position: 'absolute', top: 10, right: 10}}>
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  right: 10,
+                  width: moderateScale(50),
+                  height: moderateScale(50),
+                  backgroundColor: Colors.gray5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: moderateScale(25),
+                }}>
                 <Image
                   source={ImagePath.shareIcon}
                   style={{
@@ -85,7 +107,17 @@ const ProductInformation = ({route}) => {
             </View>
 
             <TouchableOpacity
-              style={{position: 'absolute', bottom: 10, left: 10}}>
+              style={{
+                position: 'absolute',
+                bottom: 10,
+                left: 10,
+                width: moderateScale(50),
+                height: moderateScale(50),
+                backgroundColor: Colors.gray5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: moderateScale(25),
+              }}>
               <Image
                 source={ImagePath.hearticon}
                 style={{
@@ -138,7 +170,7 @@ const ProductInformation = ({route}) => {
             fontWeight: 'bold',
             marginVertical: moderateScaleVertical(5),
           }}>
-          Total:{price}
+          Total:₹{price}
         </Text>
         <Text style={{color: '#00CED1'}}>
           FREE delivery Tomorrow by 3 PM.Order within 10hrs 30 mins{}
@@ -169,24 +201,25 @@ const ProductInformation = ({route}) => {
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#FFC72C',
-          width: "95%",
+          width: '95%',
           borderRadius: moderateScale(50),
           height: moderateScale(45),
-          marginHorizontal:moderateScale(10),
-          marginVertical:moderateScale(10)
-        }}>
-        <Text>Add to Cart</Text>
+          marginHorizontal: moderateScale(10),
+          marginVertical: moderateScale(10),
+        }}
+        onPress={() => addItemToCart(item)}>
+        {addCart ? <Text>Added to Cart</Text> : <Text>Add to Cart</Text>}
       </TouchableOpacity>
       <TouchableOpacity
         style={{
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#FFAC1C',
-          width: "95%",
+          width: '95%',
           borderRadius: moderateScale(50),
           height: moderateScale(45),
-          marginHorizontal:moderateScale(10),
-          marginVertical:moderateScale(10)
+          marginHorizontal: moderateScale(10),
+          marginVertical: moderateScale(10),
         }}>
         <Text>Buy Now</Text>
       </TouchableOpacity>

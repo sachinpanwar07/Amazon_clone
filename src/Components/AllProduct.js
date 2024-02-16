@@ -1,28 +1,25 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {moderateScale, textScale} from '../Style/Responsive';
-import Colors from '../Style/Colors';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import NavigationStrings from '../Navigation/NavigationStrings';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/CartReducer';
 import { useNavigation } from '@react-navigation/native';
+import NavigationStrings from '../Navigation/NavigationStrings';
+import { moderateScale, textScale } from '../Style/Responsive';
 
 const AllProduct = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState('jewelery');
   const [open, setOpen] = useState(false);
-  const navigation=useNavigation()
+  const [cartStatus, setCartStatus] = useState({});
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   const items = [
-    {label: "Men's clothing", value: "men's clothing"},
-    {label: 'Jewelery', value: 'jewelery'},
-    {label: 'Electronics', value: 'electronics'},
-    {label: "Women's clothing", value: "women's clothing"},
+    { label: "Men's clothing", value: "men's clothing" },
+    { label: 'Jewelery', value: 'jewelery' },
+    { label: 'Electronics', value: 'electronics' },
+    { label: "Women's clothing", value: "women's clothing" },
   ];
 
   useEffect(() => {
@@ -33,6 +30,12 @@ const AllProduct = () => {
         );
         const json = await response.json();
         setProducts(json);
+
+        const initialCartStatus = {};
+        json.forEach(item => {
+          initialCartStatus[item.id] = false;
+        });
+        setCartStatus(initialCartStatus);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -40,21 +43,35 @@ const AllProduct = () => {
     fetchProducts();
   }, [category]);
 
-  const renderProductItem = ({item}) => {
+  const addItemToCart = item => {
+    setCartStatus(prevState => ({
+      ...prevState,
+      [item.id]: true,
+    }));
+    dispatch(addToCart(item));
+  };
+
+  const renderProductItem = ({ item }) => {
     if (item.category === category) {
       return (
         <View style={styles.renderContainer}>
-          <TouchableOpacity style={styles.productItem} onPress={() => {navigation.navigate(NavigationStrings.PRODUCT_INFO, {
-                    id: item.id,
-                    title: item.title,
-                    price: item?.price,
-                    carouselImages: item.carouselImages,
-                    color: item?.color,
-                    size: item?.size,
-                    oldPrice: item?.oldPrice,
-                    item: item,
-                  })}}>
-            <Image source={{uri: item.image}} style={styles.productImage} />
+          <TouchableOpacity
+            style={styles.productItem}
+            onPress={() => {
+              navigation.navigate(NavigationStrings.PRODUCT_INFO, {
+                id: item.id,
+                title: item.title,
+                price: item?.price,
+                carouselImages: item.carouselImages,
+                color: item?.color,
+                size: item?.size,
+                oldPrice: item?.oldPrice,
+                item: item,
+              });
+            }}
+            key={item.id}
+          >
+            <Image source={{ uri: item.image }} style={styles.productImage} />
             <Text style={styles.productTitle}>{item.title}</Text>
             <Text style={styles.productPrice}>{`$${item.price}`}</Text>
             <Text style={styles.ratingtext}>{item.rating.rate} rating</Text>
@@ -69,8 +86,11 @@ const AllProduct = () => {
               borderRadius: moderateScale(50),
               height: moderateScale(45),
             }}
-            >
-            <Text>Add to Cart</Text>
+            onPress={() => addItemToCart(item)}
+          >
+            <Text>
+              {cartStatus[item.id] ? 'Added to Cart' : 'Add to Cart'}
+            </Text>
           </TouchableOpacity>
         </View>
       );

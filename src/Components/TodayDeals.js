@@ -6,16 +6,17 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { textScale } from '../Style/Responsive';
 import { useNavigation } from '@react-navigation/native';
 import NavigationStrings from '../Navigation/NavigationStrings';
 
 const TodayDeals = () => {
   const navigation=useNavigation()
+ 
   const offers = [
     {
-      id: '0',
+      id: "0",
       title:
         'Oppo Enco Air3 Pro True Wireless in Ear Earbuds with Industry First Composite Bamboo Fiber, 49dB ANC, 30H Playtime, 47ms Ultra Low Latency,Fast Charge,BT 5.3 (Green)',
       offer: '72% off',
@@ -76,23 +77,25 @@ const TodayDeals = () => {
       size: '8GB RAM, 128GB Storage',
     },
   ];
+ 
   return (
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
       style={styles.scrollView}>
-      {offers.map(offer => (
-        <TouchableOpacity key={offer.id} style={styles.card} onPress={()=>navigation.navigate(NavigationStrings.PRODUCT_INFO, {
-          id: offer.id,
-          title: offer.title,
-          price: offer?.price,
-          carouselImages: offer.carouselImages,
-          color: offer?.color,
-          size: offer?.size,
-          oldPrice: offer?.oldPrice,
-          offer: offer,
+      {offers.map((item,index) => (
+        
+        <TouchableOpacity key={item.id} style={styles.card} onPress={()=>navigation.navigate(NavigationStrings.PRODUCT_INFO, {
+          id: item.id,
+          title: item.title,
+          price: item?.price,
+          carouselImages: item.carouselImages,
+          color: item?.color,
+          size: item?.size,
+          oldPrice: item?.oldPrice,
+          item: item,
         })}>
-          <Image source={{uri: offer.image}} style={styles.image} />
+          <Image source={{uri: item.image}} style={styles.image} />
           <View
             style={{
               backgroundColor: 'red',
@@ -102,10 +105,11 @@ const TodayDeals = () => {
               alignItems: 'center',
               borderRadius:4
             }}>
-            <Text style={{textAlign:'center',color:'white',fontSize:textScale(13),fontWeight:'bold'}} > Upto{offer.offer}</Text>
+            <Text style={{textAlign:'center',color:'white',fontSize:textScale(13),fontWeight:'bold'}} > Upto{item.offer}</Text>
           </View>
-          <Text>Price: {offer.price}</Text>
+          <Text>Price: {item.price}</Text>
         </TouchableOpacity>
+
       ))}
     </ScrollView>
   );
