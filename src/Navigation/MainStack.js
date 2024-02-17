@@ -20,6 +20,16 @@ export default function (Stack) {
         component={screen.ProductInformation}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name={NavigationStrings.ADD_ADDRESS}
+        component={screen.AddAddressScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name={NavigationStrings.ADDRESSS}
+        component={screen.AddressScreen}
+        options={{headerShown: false}}
+      />
     </>
   );
 }

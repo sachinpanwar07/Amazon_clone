@@ -34,8 +34,8 @@ export default{
     ALREADY_HAVE_ACC:"Already have an account? ",
     SIGN_IN:'Sign in',
     REGISTER:"Register",
-    REGISTER_TO_ACC:"Register to your account"
-    
+    REGISTER_TO_ACC:"Register to your account",
+    ADDADDRESS:"Add Address"
 
 
 }

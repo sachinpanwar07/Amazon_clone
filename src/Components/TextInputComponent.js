@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: textScale(14),
     flex: 1,
-    color: Colors.whiteColor,
+    color: Colors.blackColor,
   },
   imageiconStyle: {
     width: moderateScale(30),
